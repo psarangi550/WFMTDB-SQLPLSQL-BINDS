@@ -1,0 +1,58 @@
+create table bricks (
+  brick_id integer,
+  colour   varchar2(10),
+  shape    varchar2(10),
+  weight   integer
+);
+
+insert into bricks values ( 1, 'blue', 'cube', 1 );
+insert into bricks values ( 2, 'blue', 'pyramid', 2 );
+insert into bricks values ( 3, 'red', 'cube', 1 );
+insert into bricks values ( 4, 'red', 'cube', 2 );
+insert into bricks values ( 5, 'red', 'pyramid', 3 );
+insert into bricks values ( 6, 'green', 'pyramid', 1 );
+
+commit;
+
+
+SELECT * FROM BRICKS
+
+SELECT B.*,
+SUM(WEIGHT) OVER(PARTITION BY COLOUR ORDER BY SHAPE) AS RESULT_OUTPUT
+FROM BRICKS B;
+
+SELECT B.*,
+MAX(WEIGHT) OVER(PARTITION BY COLOUR ORDER BY SHAPE) AS RESULT_OUTPUT
+FROM BRICKS B;
+
+
+SELECT B.*,
+SUM(WEIGHT)OVER(PARTITION BY SHAPE ORDER BY COLOUR )AS RESULT_OUTPUT
+FROM BRICKS B
+
+SELECT B.*,
+MAX(WEIGHT)OVER(PARTITION BY SHAPE ORDER BY COLOUR) AS RESULT_OUTPUT_1
+FROM BRICKS B
+
+SELECT B.*,
+SUM(WEIGHT)OVER(PARTITION BY SHAPE ORDER BY COLOUR) AS RESULT_OUTPUT_1
+FROM BRICKS B
+
+
+SELECT B.*,
+SUM(WEIGHT)OVER(PARTITION BY COLOUR ORDER BY COLOUR) AS RESULT_OUTPUT_1
+FROM BRICKS B
+
+SELECT B.*,
+MAX(WEIGHT)OVER(PARTITION BY COLOUR ORDER BY COLOUR) AS RESULT_OUTPUT_1
+FROM BRICKS B
+
+
+SELECT B.*,
+MAX(WEIGHT)OVER(PARTITION BY SHAPE ORDER BY SHAPE) AS RESULT_OUTPUT_1
+FROM BRICKS B
+
+SELECT B.*,
+SUM(WEIGHT)OVER(PARTITION BY SHAPE ORDER BY SHAPE) AS RESULT_OUTPUT_1
+FROM BRICKS B
+
